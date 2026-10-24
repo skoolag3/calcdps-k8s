@@ -7,7 +7,6 @@
   "customizations": {
     "codespaces": {
       "openFiles": [
-        "README.md",
         "deployment.yaml",
         "service.yaml"
       ]
