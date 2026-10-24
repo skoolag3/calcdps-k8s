@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: calcdps-app
+  labels:
+    app: calcdps
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: calcdps
+  template:
+    metadata:
+      labels:
+        app: calcdps
+    spec:
+      containers:
+      - name: calcdps
+        image: calcdps:v1
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8501
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
