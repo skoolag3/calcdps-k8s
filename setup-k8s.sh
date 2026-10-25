@@ -36,10 +36,15 @@ fi
 echo "=== 3. Iniciando cluster Minikube ==="
 minikube start --driver=docker --memory=2048
 
-echo "=== 4. Construindo a imagem calcdps:v1 e v2 no Minikube ==="
-eval $(minikube docker-env)
+echo "=== 4. Construindo a imagem calcdps:v1 e carregando no Minikube ==="
+# Garante que usamos o Docker nativo do Codespaces para buildar
+eval $(minikube docker-env -u 2>/dev/null || true)
 docker build -t calcdps:v1 .
 docker tag calcdps:v1 calcdps:v2
+
+# Carrega a imagem para dentro do cluster Minikube
+minikube image load calcdps:v1
+minikube image load calcdps:v2
 
 echo ""
 echo "=== AMBIENTE PRONTO COM SUCESSO! ==="
